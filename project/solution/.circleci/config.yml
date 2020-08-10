@@ -8,16 +8,15 @@ commands:
         type: string      
     steps:
       - run:
-          name: Destroy environment << parameters.workflow_id >>
+          name: Destroy environments
           when: on_fail
           command: |
             echo "Destroying environment: << parameters.workflow_id >> "
             aws s3 rm s3://udapeople-<< parameters.workflow_id >> --recursive
             aws cloudformation delete-stack --stack-name udapeople-backend-<< parameters.workflow_id >>
             aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.workflow_id >>
-  revert-migration:
+  revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
-    when: on_fail
     parameters:
       workflow_id:
         type: string      
@@ -35,7 +34,7 @@ commands:
             fi
 
 jobs:
-  lint-frontend:
+  build-frontend:
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -43,7 +42,7 @@ jobs:
       - restore_cache:
           keys: [frontend-build]
       - run:
-          name: Lint frontend
+          name: Build frontend
           command: |
             cd frontend
             npm install
@@ -167,7 +166,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["06:7c:db:71:49:2f:03:36:60:08:d2:fd:33:6f:17:d3"]
+          fingerprints: ["29:fe:41:7a:16:5f:f3:91:89:93:fb:36:da:61:66:94"]
       - attach_workspace:
           at: ~/
       - run:
@@ -237,7 +236,7 @@ jobs:
             aws s3 sync . s3://udapeople-"${CIRCLE_WORKFLOW_ID:0:7}" --delete
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
-      - revert_migration:
+      - revert-migrations:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
                     
   deploy-backend:
@@ -246,7 +245,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["06:7c:db:71:49:2f:03:36:60:08:d2:fd:33:6f:17:d3"]
+          fingerprints: ["29:fe:41:7a:16:5f:f3:91:89:93:fb:36:da:61:66:94"]
       - attach_workspace:
           at: ~/
       - run:
@@ -262,7 +261,7 @@ jobs:
             ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
-      - revert_migration:
+      - revert-migrations:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
 
   smoke-test:
@@ -302,7 +301,7 @@ jobs:
             fi
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
-      - revert_migration:
+      - revert-migrations:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
 
   cloudfront-update:
@@ -343,22 +342,22 @@ jobs:
             fi
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
-      - revert_migration:
+      - revert-migrations:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
 
 workflows:
   default:
     jobs:
-      - lint-frontend
+      - build-frontend
       - build-backend
       - test-frontend:
-          requires: [lint-frontend]
+          requires: [build-frontend]
       - test-backend:
           requires: [build-backend]
       - scan-backend:
           requires: [build-backend]
       - scan-frontend:
-          requires: [lint-frontend]
+          requires: [build-frontend]
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
