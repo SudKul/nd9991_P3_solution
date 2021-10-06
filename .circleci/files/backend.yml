@@ -3,7 +3,7 @@ Description: >
 
 Parameters:
   ID:
-    Description: Unique identifier.
+    Description: Unique identifier
     Type: String
 
 Resources:
@@ -30,6 +30,4 @@ Resources:
         - Ref: InstanceSecurityGroup
       KeyName: nd9990_keypair
       ImageId: ami-0747bdcabd34c712a
-      Tags:
-        - Key: Name
-          Value: !Sub backend-${ID}
+
