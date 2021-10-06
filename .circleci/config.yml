@@ -213,13 +213,16 @@ jobs:
       - image: circleci/python:3.8.2
     steps:
       - checkout
+      - run: yum install -y tar
+      - run: yum install -y gzip
       - attach_workspace:
           at: ~/
       - run:
           name: Install dependencies
           command: |
-            sudo apt-get install tar gzip ansible nodejs npm
-            pip install awscli
+            curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
+            yum -y install nodejs
+            yum -y install tar gzip
       - run:
           name: Get backend url
           command: |
