@@ -1,37 +1,53 @@
-# Purpose of This Repo
+# README Template
 
-This repo is meant to be used to keep things organized during content development and act as the source of truth for all projects and exercises related to this course.
+Below is a template provided for use when building your README file for students.
 
-## Folder Structure
+# Project Title
 
-### Lesson Folder
+Project description goes here.
 
-This repo contains a folder for each `lesson` and one `project` folder.
+## Getting Started
 
-Example
+Instructions for how to get a copy of the project running on your local machine.
+
+### Dependencies
+
 ```
-lesson-1-hello
-lesson-2-world
-lesson-3-foo
-lesson-4-bar
-project
-```
-
-Each `lesson` folder is named using the naming convention of `lesson-#-name-of-lesson`.
-
-Example
-```
-lesson-1-hello
+Examples here
 ```
 
-Four lesson folders have been provided as a template; However, you may need to add more or possibly use less than four depending on what is needed.
+### Installation
 
-If you require an additional lesson folder, you can make a copy of the folder and paste it into the root directory.
+Step by step explanation of how to get a dev environment running.
 
-### Exercises Folder
+List out the steps
 
-Each `lesson` folder contains an `exercises` folder. This `exercises` folder should contain all files and instructions necessary for the exercises along with the solution. The solutions for these exercises will be shared with students. See the `README` in the `exercises` folder for information about folder structure.
+```
+Give an example here
+```
 
-### Project Folder
+## Testing
 
-The `project` folder should contain all files and instructions necessary for setup. If possible, a set of instructions should be provided for both Udacity workspaces and a way to work locally (for both MacOS and Windows OS). At a minimum, one set of instructions should be provided. A `README` template has been provided in the project folder. This template layout should be used to write your README.
+Explain the steps needed to run any automated tests
+
+### Break Down Tests
+
+Explain what each test does and why
+
+```
+Examples here
+```
+## Project Instructions
+
+This section should contain all the student deliverables for this project.
+
+## Built With
+
+* [Item1](www.item1.com) - Description of item
+* [Item2](www.item2.com) - Description of item
+* [Item3](www.item3.com) - Description of item
+
+Include all items used to build project.
+
+## License
+[License](../LICENSE.md)
