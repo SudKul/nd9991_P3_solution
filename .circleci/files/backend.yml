@@ -30,4 +30,7 @@ Resources:
         - Ref: InstanceSecurityGroup
       KeyName: nd9990_keypair
       ImageId: ami-0747bdcabd34c712a
+      Tags:
+        - Key: Name
+          Value: !Sub backend-${ID}
 
