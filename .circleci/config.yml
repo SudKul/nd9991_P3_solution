@@ -306,9 +306,6 @@ jobs:
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
-      - run:
-          name: Backend smoke test.
-          command: |
             curl "http://${API_URL}:3030/api/status"
       - run:
           name: Frontend smoke test.
