@@ -400,15 +400,15 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - attach_workspace:
+          at: ~/      
       - run:
           name: Install dependencies
           command: |
             yum -y install tar
             yum -y install gzip
-      - attach_workspace:
-          at: ~/
       - run:
-          name: Get OldStack Workflow ID and Remove old stacks ans S3 bucket
+          name: Get OldStack Workflow ID
           command: |
             cat ~/OldWorkflowID.txt
             OldWorkflowID=$(cat ~/OldWorkflowID.txt)
