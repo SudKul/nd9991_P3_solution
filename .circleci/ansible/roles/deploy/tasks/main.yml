@@ -10,6 +10,7 @@
   ignore_errors: yes
 
 - name: "start app."
+  become_user: true
   environment: 
     TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}" 
     TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}" 
@@ -20,6 +21,5 @@
     TYPEORM_ENTITIES: "./src/modules/**/*.entity.ts"
     TYPEORM_MIGRATIONS: "./src/migrations/*.ts"
   shell: |
-    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash - && sudo apt-get install -y nodejs
     npm install
     pm2 start npm -- start
