@@ -5,21 +5,6 @@
     src: /root/project/artifact.tar.gz
     dest: /home/ubuntu/
 
-- name: "copy files from CircleCI to server"
-  copy:
-    src: /root/project/backend
-    dest: /home/ubuntu
-
-- name: "install package dependencies"
-  shell: |
-    cd /home/ubuntu/backend    
-    npm install 
-
-- name: "build package"
-  shell: |
-    cd /home/ubuntu/backend
-    npm run build
-    
 - name: "stop app."
   shell: pm2 stop default
   ignore_errors: yes
