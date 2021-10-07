@@ -251,12 +251,13 @@ jobs:
             echo "${API_URL}"
       - run:
           name: Deploy frontend objects
+          # aws s3 sync . s3://udapeople-"${CIRCLE_WORKFLOW_ID:0:7}" --delete
           command: |
             cd frontend
             npm install
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
-            aws s3 sync . s3://udapeople-"${CIRCLE_WORKFLOW_ID:0:7}" --delete
+            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"        
       - revert-migrations:
