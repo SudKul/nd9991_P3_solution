@@ -4,12 +4,12 @@
   apt:
     upgrade: "yes"
 
-- name: "install dependencies."
+- name: "install node 12.X"
   become: true
-  apt:
-    name: ["nodejs", "npm"]
-    state: latest
-    update_cache: yes
+  shell: |
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    sudo apt -y upgrade
+    sudo apt install -y nodejs
 
 - name: "install pm2"
   become: true
