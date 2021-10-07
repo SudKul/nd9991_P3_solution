@@ -19,7 +19,6 @@
     TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
     TYPEORM_ENTITIES: "./src/modules/**/*.entity.ts"
     TYPEORM_MIGRATIONS: "./src/migrations/*.ts"
-
   shell: |
     npm install
     pm2 start npm -- start
